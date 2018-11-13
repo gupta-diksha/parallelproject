@@ -1,8 +1,11 @@
 package com.cg.pwa.service;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.regex.Pattern;
+
 
 import com.cg.pwa.exception.PaymentAppException;
 import com.cg.pwa.dao.IPaymentAppDao;
@@ -21,9 +24,21 @@ public class PaymentAppServiceImpl implements IPaymentAppService {
 
 
 	@Override
-	public boolean validateUser(long uname, String password)throws PaymentAppException {
-		
-		return false;
+	public boolean validateUser(Long uname, String password)
+	{
+		HashSet<Customer> custSet = pwaDao.getAll();
+		Iterator<Customer> it = custSet.iterator();
+		boolean flag=false;
+		while(it.hasNext())
+		{
+			Customer cc =it.next();
+			if((cc.getMobileNum()==uname) && (cc.getPassword()==password))
+			{
+				flag=true;
+			}
+			
+		}
+		return flag;
 	}
 	
 	
@@ -65,10 +80,14 @@ public class PaymentAppServiceImpl implements IPaymentAppService {
 
 
 	@Override
-	public boolean validateMobile(long mobnum) throws PaymentAppException{
-		
-		
-		return false;
+	public boolean validateMobile(Long mobnum) throws PaymentAppException
+	{
+		String tempmob= mobnum.toString();
+		String mobilePattern="[7-9][0-9]{9}";
+		if(Pattern.matches(mobilePattern,tempmob))
+			return true;
+		else
+			return false;
 	}
 
 
@@ -90,9 +109,14 @@ public class PaymentAppServiceImpl implements IPaymentAppService {
 
 
 	@Override
-	public boolean validateMail(String mail)throws PaymentAppException {
-		
-		return false;
+	public boolean validateMail(String mail)throws PaymentAppException
+	{
+		String mailPattern="^[a-zA-Z0-9_+&*-] + (?:\\.[a-zA-Z0-9_+&*-]"
+                            + ")*@(?:[a-zA-Z0-9-]+\\.) + [a-zA-Z]{2, 7} ";
+		if(Pattern.matches(mailPattern,mail))
+			return true;
+		else
+			throw new PaymentAppException("Invalid mail-Id"+"example: user@sample.com");
 	}
 
 

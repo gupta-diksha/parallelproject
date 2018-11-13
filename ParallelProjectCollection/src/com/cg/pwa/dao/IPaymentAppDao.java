@@ -1,9 +1,11 @@
 package com.cg.pwa.dao;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Map;
 
 import com.cg.pwa.dto.Customer;
+import com.cg.pwa.exception.PaymentAppException;
 
 public interface IPaymentAppDao {
 	
@@ -13,6 +15,6 @@ public interface IPaymentAppDao {
 	public double withdraw(Long mobile,double wdamnt);
 	public double fundsTranfer(Long mobile,Long mobileReceiver,double transferAmnt);
 	public Map<String,LocalDate> printTransactions();
-	
+	public HashSet<Customer> getAll();
 
 }

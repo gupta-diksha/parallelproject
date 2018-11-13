@@ -13,11 +13,12 @@ public interface IPaymentAppService {
 	public double withdraw(Long mobile,double wdamnt);
 	public double fundsTranfer(Long mobile,Long mobileReceiver,double transferAmnt);
 	public Map<String,LocalDate> printTransactions();
-	public boolean validateUser(long uname, String password)throws PaymentAppException;
-	public boolean validateMobile(long mobnum)throws PaymentAppException;
+	public boolean validateUser(Long uname, String password);
+	public boolean validateMobile(Long mobnum)throws PaymentAppException;
 	public boolean validateName(String name)throws PaymentAppException;
 	public boolean validateMail(String mail)throws PaymentAppException;
 	public boolean validateAmount(double wdAmnt)throws PaymentAppException;
 	public boolean validateBalanceLimit(double wdAmnt)throws PaymentAppException;
+	 
 
 }

@@ -36,37 +36,31 @@ public class Client
 			uname=sc.nextLong();
 			System.out.println("Enter your password:");
 			password=sc.next();
-			try
-			{
-			if(pwaService.validateUser(uname,password))
-			{
-				while(flag==true)
+				if(pwaService.validateUser(uname,password))
 				{
-					System.out.println("What do you want to do?");
-					System.out.println("1.Check Balance");
-					System.out.println("2.Deposit");
-					System.out.println("3.Withdraw");
-					System.out.println("4.Transfer Funds");
-					System.out.println("5.Print transactions");
-					System.out.println("Enter your choice:");
-					choice2=sc.nextInt();
-
-					switch(choice2)
+					while(flag==true)
 					{
-					case 1:checkBalance(uname);break;
-					case 2: deposit(uname);break;
-					case 3: withdraw(uname);break;
-					case 4: transferFund(uname);break;
-					case 5: printTransactions();break;
-					default:flag=false;
-					}
+						System.out.println("What do you want to do?");
+						System.out.println("1.Check Balance");
+						System.out.println("2.Deposit");
+						System.out.println("3.Withdraw");
+						System.out.println("4.Transfer Funds");
+						System.out.println("5.Print transactions");
+						System.out.println("Enter your choice:");
+						choice2=sc.nextInt();
 
+						switch(choice2)
+						{
+						case 1:checkBalance(uname);break;
+						case 2: deposit(uname);break;
+						case 3: withdraw(uname);break;
+						case 4: transferFund(uname);break;
+						case 5: printTransactions();break;
+						default:flag=false;
+						}
+
+					}
 				}
-			}
-			}catch(PaymentAppException e)
-			{
-				e.printStackTrace();
-			}
 			
 			break;
 			case 2: createAccount();break;

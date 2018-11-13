@@ -1,9 +1,13 @@
 package com.cg.pwa.dao;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Map;
 
+
+import com.cg.pwa.util.CollectionUtil;
 import com.cg.pwa.dto.Customer;
+import com.cg.pwa.exception.PaymentAppException;
 
 public class PaymentAppDaoImpl  implements IPaymentAppDao{
 
@@ -40,6 +44,13 @@ public class PaymentAppDaoImpl  implements IPaymentAppDao{
 	public Map<String, LocalDate> printTransactions() {
 		
 		return null;
+	}
+
+	@Override
+	public HashSet<Customer> getAll() {
+		
+		return CollectionUtil.getAllCustomers();
+		
 	}
 
 }
