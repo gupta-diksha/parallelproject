@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Map;
 
+import com.cg.pwa.dto.Account;
 import com.cg.pwa.dto.Customer;
 import com.cg.pwa.exception.PaymentAppException;
 
@@ -16,5 +17,7 @@ public interface IPaymentAppDao {
 	public double fundsTranfer(Long mobile,Long mobileReceiver,double transferAmnt);
 	public Map<String,LocalDate> printTransactions();
 	public HashSet<Customer> getAll();
+	public HashSet<Account> getAccount(Long mobile);
+	public HashSet<Account> getAccountByMobile(Long mobile);
 
 }

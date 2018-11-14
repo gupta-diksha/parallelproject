@@ -1,7 +1,9 @@
 package com.cg.pwa.ui;
 
+import java.util.HashSet;
 import java.util.Scanner;
 
+import com.cg.pwa.dto.Account;
 import com.cg.pwa.dto.Customer;
 import com.cg.pwa.exception.PaymentAppException;
 import com.cg.pwa.service.*;
@@ -16,7 +18,8 @@ public class Client
 	{
 		pwaService= new PaymentAppServiceImpl();
 		sc= new Scanner(System.in);
-		int choice1,choice2;
+		int choice1;
+		String choice2;
 		long uname;
 		String password;
 		boolean flag;
@@ -38,24 +41,25 @@ public class Client
 			password=sc.next();
 				if(pwaService.validateUser(uname,password))
 				{
+					System.out.println("hi1");
 					while(flag==true)
 					{
 						System.out.println("What do you want to do?");
-						System.out.println("1.Check Balance");
-						System.out.println("2.Deposit");
-						System.out.println("3.Withdraw");
-						System.out.println("4.Transfer Funds");
-						System.out.println("5.Print transactions");
+						System.out.println("A.Check Balance");
+						System.out.println("B.Deposit");
+						System.out.println("C.Withdraw");
+						System.out.println("D.Transfer Funds");
+						System.out.println("E.Print transactions");
 						System.out.println("Enter your choice:");
-						choice2=sc.nextInt();
+						choice2=sc.next();
 
 						switch(choice2)
 						{
-						case 1:checkBalance(uname);break;
-						case 2: deposit(uname);break;
-						case 3: withdraw(uname);break;
-						case 4: transferFund(uname);break;
-						case 5: printTransactions();break;
+						case "A":checkBalance(uname);break;
+						case "B": deposit(uname);break;
+						case "C": withdraw(uname);break;
+						case "D": transferFund(uname);break;
+						case "E": printTransactions();break;
 						default:flag=false;
 						}
 
@@ -74,7 +78,8 @@ public class Client
 	private static void createAccount()
 	{
 		long mobnum;
-		String name,mail;
+		String name,pass;
+		HashSet<Account> tempset,tempset2;
 		System.out.println("Enter your mobile number:");
 		mobnum=sc.nextLong();
 		try
@@ -86,14 +91,23 @@ public class Client
 
 				if(pwaService.validateName(name))
 				{
-					System.out.println("Enter your mail id:");
-					mail=sc.next();
-					if(pwaService.validateMail(mail))
-					{
-						Customer cusobj = new Customer(mobnum,name,mail,0.0);
+				
+						System.out.println("Enter the password:");
+						pass=sc.next();
+						if(pwaService.validatePassword(pass))
+						{
+							tempset=pwaService.getAccountByMobile(mobnum);
+							//System.out.println(tempset);
+							
+							
+							Customer cusobj = new Customer(mobnum,name,0.0,pass,tempset);
+							pwaService.createAccount(cusobj);
+							
+							System.out.println(name+"your account has been created successfully!"+cusobj);
+						}
 					}
 				}
-			} 
+			
 		}catch (PaymentAppException e) {
 
 			e.printStackTrace();
