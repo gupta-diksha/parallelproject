@@ -1,8 +1,10 @@
 package com.cg.pwa.service;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Map;
 
+import com.cg.pwa.dto.Account;
 import com.cg.pwa.dto.Customer;
 import com.cg.pwa.exception.PaymentAppException;
 
@@ -19,6 +21,9 @@ public interface IPaymentAppService {
 	public boolean validateMail(String mail)throws PaymentAppException;
 	public boolean validateAmount(double wdAmnt)throws PaymentAppException;
 	public boolean validateBalanceLimit(double wdAmnt)throws PaymentAppException;
+	public boolean validatePassword(String pass);
+	public HashSet<Account> getAccount(Long mobile);
+	public HashSet<Account> getAccountByMobile(Long mobile);
 	 
 
 }

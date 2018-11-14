@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import com.cg.pwa.exception.PaymentAppException;
 import com.cg.pwa.dao.IPaymentAppDao;
 import com.cg.pwa.dao.PaymentAppDaoImpl;
+import com.cg.pwa.dto.Account;
 import com.cg.pwa.dto.Customer;
 //import com.cg.pwa.exception.PaymentAppException;
 
@@ -27,13 +28,18 @@ public class PaymentAppServiceImpl implements IPaymentAppService {
 	public boolean validateUser(Long uname, String password)
 	{
 		HashSet<Customer> custSet = pwaDao.getAll();
+		//System.out.println(custSet);
 		Iterator<Customer> it = custSet.iterator();
+		//System.out.println(uname);
+		//System.out.println(password);
 		boolean flag=false;
 		while(it.hasNext())
 		{
+			System.out.println("hifromwhile");
 			Customer cc =it.next();
-			if((cc.getMobileNum()==uname) && (cc.getPassword()==password))
+			if((cc.getMobileNum().equals(uname)) && (cc.getPassword().equals(password)))
 			{
+				//System.out.println("hifromif");
 				flag=true;
 			}
 			
@@ -46,6 +52,7 @@ public class PaymentAppServiceImpl implements IPaymentAppService {
 	public void createAccount(Customer cust) {
 		
 		pwaDao.createAccount(cust);
+		//return cust.getAccount();
 	}
 
 	@Override
@@ -111,12 +118,11 @@ public class PaymentAppServiceImpl implements IPaymentAppService {
 	@Override
 	public boolean validateMail(String mail)throws PaymentAppException
 	{
-		String mailPattern="^[a-zA-Z0-9_+&*-] + (?:\\.[a-zA-Z0-9_+&*-]"
-                            + ")*@(?:[a-zA-Z0-9-]+\\.) + [a-zA-Z]{2, 7} ";
-		if(Pattern.matches(mailPattern,mail))
+		//String mailPattern="^[(a-zA-Z-0-9-\\\\_\\\\+\\\\.)]+@[(a-z-A-z)]+\\\\.[(a-zA-z)]{2,3}$";
+		//if(Pattern.matches(mailPattern,mail))
 			return true;
-		else
-			throw new PaymentAppException("Invalid mail-Id"+"example: user@sample.com");
+		//else
+			//throw new PaymentAppException("Invalid mail-Id"+"example: user@sample.com");
 	}
 
 
@@ -133,9 +139,31 @@ public class PaymentAppServiceImpl implements IPaymentAppService {
 	@Override
 	public boolean validateBalanceLimit(double wdAmnt)throws PaymentAppException {
 		
-		return false;
+		return true;
 	}
 
+
+	@Override
+	public boolean validatePassword(String pass) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+
+	@Override
+	public HashSet<Account> getAccount(Long mobile) {
+		HashSet<Account> accSet=pwaDao.getAccount(mobile);
+		
+	
+		return accSet;
+	}
+
+
+	@Override
+	public HashSet<Account> getAccountByMobile(Long mobile) {
+		
+		return pwaDao.getAccountByMobile(mobile);
+	}
 	
 
 	

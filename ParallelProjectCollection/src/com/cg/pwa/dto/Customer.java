@@ -1,33 +1,64 @@
 package com.cg.pwa.dto;
 
+import java.util.HashSet;
+
 public class Customer {
 
 	private Long mobileNum;
 	private String custName;
-	private String custEmail;
+	//private String custEmail;
 	private double accBalance;
+	
 	private String password;
+	private HashSet<Account> account;
 	
 
 	public Customer() {
 		
 	}
 
-	@Override
-	public String toString() {
-		return "Customer [mobileNum=" + mobileNum + ", custName=" + custName
-				+ ", custEmail=" + custEmail + ", accBalance=" + accBalance
-				+ "]";
-	}
+	
+	
 
-	public Customer(Long mobileNum, String custName, String custEmail,
-			double accBalance) {
+	
+	
+	
+	public Customer(Long mobileNum, String custName, double accBalance, String password, HashSet<Account> account) {
 		super();
 		this.mobileNum = mobileNum;
 		this.custName = custName;
-		this.custEmail = custEmail;
 		this.accBalance = accBalance;
+		this.password = password;
+		this.account = account;
 	}
+
+
+
+
+
+
+
+	@Override
+	public String toString() {
+		return "Customer [mobileNum=" + mobileNum + ", custName=" + custName + ", accBalance=" + accBalance
+				+ ", password=" + password + ", account=" + account + "]";
+	}
+
+
+
+
+
+
+
+	public HashSet<Account> getAccount() {
+		return account;
+	}
+	public void setAccount(HashSet<Account> account) {
+		this.account = account;
+	}
+
+
+
 
 	public Long getMobileNum() {
 		return mobileNum;
@@ -43,12 +74,12 @@ public class Customer {
 		this.custName = custName;
 	}
 
-	public String getCustEmail() {
+	/*public String getCustEmail() {
 		return custEmail;
 	}
 	public void setCustEmail(String custEmail) {
 		this.custEmail = custEmail;
-	}
+	}*/
 
 	public double getAccBalance() {
 		return accBalance;
